@@ -113,7 +113,7 @@ The project includes a series of SQL queries for each analysis. Below are some k
 7. **Categorize the content based on the presence of the keywords 'kill' and 'violence' in 
 the description field. Label content containing these keywords as 'Bad' and all other 
 content as 'Good'. Count how many items fall into each category.**
-```sql
+    ```sql
 SELECT 
    category,
 	TYPE,
@@ -126,8 +126,8 @@ FROM (
          ELSE 'Good'
          END AS category
      FROM netflix
-) AS categorized_content
-GROUP BY 1,2
-ORDER BY 2;
+     ) AS categorized_content
+     GROUP BY 1,2
+     ORDER BY 2;
 ```
 
