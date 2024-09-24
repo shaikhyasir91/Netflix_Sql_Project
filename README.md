@@ -50,7 +50,7 @@ The dataset used in this project includes details about Netflix shows and movies
 
 ## SQL Queries
 
-The project includes a series of SQL queries for each analysis. Below are some key queries:
+The project includes a series of SQL queries for each analysis.
 
 1. **Count the number of Movies vs TV Shows:**
     ```sql
@@ -71,7 +71,14 @@ The project includes a series of SQL queries for each analysis. Below are some k
     WHERE rnk = 1;
     ```
 
-3. **Identify the longest movie:**
+3. **List all movies released in a specific year (e.g., 2020):**
+    ```sql
+   SELECT *
+   FROM netflix
+   WHERE type='Movie' and release_year=2020;
+    ```
+
+5. **Identify the longest movie:**
     ```sql
     SELECT title, CAST(SUBSTRING(duration, 1, POSITION(' ' IN duration) - 1) AS INT) AS Len
     FROM netflix
