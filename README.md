@@ -50,7 +50,7 @@ The dataset used in this project includes details about Netflix shows and movies
 
 ## SQL Queries
 
-The project includes a series of SQL queries for each analysis.
+The project includes a series of SQL queries for each analysis. Below are some key queries.
 
 1. **Count the number of Movies vs TV Shows:**
     ```sql
@@ -78,6 +78,18 @@ The project includes a series of SQL queries for each analysis.
    WHERE type='Movie' and release_year=2020;
     ```
 
+4. **Find the top 5 countries with the most content on Netflix:**
+    ```sql
+   SELECT 
+	   unnest(string_to_array(Country, ',')) AS Country,
+	   count(*)
+   FROM netflix
+   GROUP BY 1
+   ORDER BY 2 DESC
+   LIMIT 5
+;
+    ```
+
 5. **Identify the longest movie:**
     ```sql
     SELECT title, CAST(SUBSTRING(duration, 1, POSITION(' ' IN duration) - 1) AS INT) AS Len
@@ -86,7 +98,7 @@ The project includes a series of SQL queries for each analysis.
     ORDER BY Len DESC;
     ```
 
-4. **Find each year and the average number of content releases by India on Netflix:**
+6. **Find each year and the average number of content releases by India on Netflix:**
     ```sql
     SELECT country, release_year, COUNT(show_id) AS total_release,
            ROUND(COUNT(show_id)::NUMERIC / 
@@ -96,5 +108,26 @@ The project includes a series of SQL queries for each analysis.
     GROUP BY country, release_year
     ORDER BY avg_release DESC
     LIMIT 5;
+    ```
+
+7. **Categorize the content based on the presence of the keywords 'kill' and 'violence' in 
+the description field. Label content containing these keywords as 'Bad' and all other 
+content as 'Good'. Count how many items fall into each category.**
+```sql
+SELECT 
+   category,
+	TYPE,
+   COUNT(*) AS content_count
+FROM (
+    SELECT 
+		*,
+      CASE 
+         WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
+         ELSE 'Good'
+         END AS category
+     FROM netflix
+) AS categorized_content
+GROUP BY 1,2
+ORDER BY 2;
     ```
 
