@@ -114,20 +114,20 @@ The project includes a series of SQL queries for each analysis. Below are some k
 the description field. Label content containing these keywords as 'Bad' and all other 
 content as 'Good'. Count how many items fall into each category.**
     ```sql
-SELECT 
-   category,
-	TYPE,
-   COUNT(*) AS content_count
-FROM (
     SELECT 
+   	category,
+	TYPE,
+   	COUNT(*) AS content_count
+    FROM (
+    	SELECT 
 		*,
-      CASE 
-         WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
-         ELSE 'Good'
-         END AS category
-     FROM netflix
-     ) AS categorized_content
-     GROUP BY 1,2
-     ORDER BY 2;
-```
+      		CASE 
+    			WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
+         		ELSE 'Good'
+         	END AS category
+     	FROM netflix
+     	) AS categorized_content
+    GROUP BY 1,2
+    ORDER BY 2;
+    ```
 
