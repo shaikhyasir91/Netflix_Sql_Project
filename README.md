@@ -129,5 +129,5 @@ FROM (
 ) AS categorized_content
 GROUP BY 1,2
 ORDER BY 2;
-    ```
+```
 
